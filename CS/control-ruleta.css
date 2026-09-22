@@ -1,0 +1,24 @@
+/* Estilos para el contenedor del resultado de la ruleta */
+.resultado-container {
+    text-align: center;
+    margin: 15px 0;
+}
+
+.resultado-container h3 {
+    margin-bottom: 5px;
+    color: #333;
+    font-family: sans-serif;
+}
+
+.caja-resultado {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2e7d32;
+    background: #e8f5e9;
+    border: 2px dashed #4caf50;
+    padding: 10px 20px;
+    display: inline-block;
+    border-radius: 8px;
+    font-family: sans-serif;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}

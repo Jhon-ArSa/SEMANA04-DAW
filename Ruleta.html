@@ -3,67 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ruleta de Sorteo</title>
-    <link rel="stylesheet" href="estilos.css">
-</head>
+    <title>Aula Virtual - Ruleta</title>
+    <link rel="stylesheet" href="CS/ruleta.visual.css">
+    <link rel="stylesheet" href="CS/control-ruleta.css">
 
+
+</head>
 <body>
 
-    <main class="contenedor-ruleta">
+<h2 id="respuesta">RESPUESTA</h2>
 
-        <section class="panel-control">
+<!-- Apartado agregado para mostrar el resultado visual de la ruleta -->
+<div class="resultado-container" style="text-align: center; margin: 15px 0;">
+    <h3>¡Ganador actual!</h3>
+    <div id="cajaResultado" class="caja-resultado" style="font-size: 24px; font-weight: bold; color: #2e7d32; background: #e8f5e9; border: 2px dashed #4caf50; padding: 10px 20px; display: inline-block; border-radius: 8px;">Aún no se ha girado la ruleta</div>
+</div>
 
-            <h1>Ruleta de Sorteo</h1>
+<div class="contenedor">
 
-            <label for="participantes">Participantes</label>
+  <div class="zona-ruleta">
+    <canvas id="lienzoRuleta" width="500" height="500"></canvas>
+    <p class="ayuda">Haz clic para girar</p>
+  </div>
 
-            <textarea
-                id="participantes"
-                placeholder="Escribe un participante por línea..."
-                rows="12"
-            ></textarea>
+  <div class="panel">
+    <textarea id="areaTextarea" rows="15" cols="20">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12</textarea>
+  </div>
 
-            <div class="botones">
-                <button id="botonIniciar" type="button">
-                    Iniciar
-                </button>
+</div>
 
-                <button id="botonReiniciar" type="button">
-                    Reiniciar
-                </button>
-            </div>
+<script src="js/ruleta-visual.js"></script>
+<script src="js/control-ruleta.js"></script>
 
-            <div class="atajos">
-                <p><strong>Atajos:</strong></p>
-                <p><kbd>SPACE</kbd> Girar</p>
-                <p><kbd>S</kbd> Ocultar ganador</p>
-                <p><kbd>E</kbd> Editar participantes</p>
-                <p><kbd>R</kbd> Reiniciar</p>
-                <p><kbd>F</kbd> Pantalla completa</p>
-            </div>
+<script>
+  // Función para procesar y actualizar los elementos desde el textarea
+  const actualizarDesdeTextarea = () => {
+    const elementos = document.getElementById('areaTextarea').value
+      .split('\n')
+      .map(l => l.trim())
+      .filter(l => l !== '');
 
-        </section>
+    actualizarElementosRuleta(elementos);
+  };
 
+  // Inicialización manteniendo tu estructura original
+  actualizarDesdeTextarea();
 
-        <section class="panel-ruleta">
+  // Escuchar cambios en el textarea para agregar/quitar nombres en tiempo real
+  document.getElementById('areaTextarea').addEventListener('input', actualizarDesdeTextarea);
 
-            <div id="respuesta" class="respuesta">
-                RESPUESTA
-            </div>
-
-            <!-- Gabriel trabajará posteriormente con este canvas -->
-            <canvas
-                id="ruleta"
-                width="500"
-                height="500"
-            ></canvas>
-
-        </section>
-
-    </main>
-
-    <script src="js/almacenamiento.js"></script>
-    <script src="js/control-ruleta.js"></script>
+  // Giro al hacer clic en la ruleta y reflejar el resultado en el nuevo apartado
+  document.getElementById('lienzoRuleta').addEventListener('click', () => {
+    girarRuleta((ganador) => {
+      document.getElementById('respuesta').textContent = "Ganador: " + ganador.valor;
+      document.getElementById('cajaResultado').textContent = ganador.valor;
+    });
+  });
+</script>
 
 </body>
 </html>
