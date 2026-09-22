@@ -36,7 +36,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const lineaLimpia = linea.trim();
       if (lineaLimpia.length > 0) {
         if (lineaLimpia.length > LONGITUD_MAXIMA_LINEA) {
-          erroresEncontrados.push(`Línea ${indice + 1}: Supera los ${LONGITUD_MAXIMA_LINEA} caracteres.`);
+          erroresEncontrados.push(
+            `Línea ${indice + 1}: Supera los ${LONGITUD_MAXIMA_LINEA} caracteres.`,
+          );
         } else {
           listaValida.push(lineaLimpia);
         }
@@ -44,7 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     if (listaValida.length > MAXIMO_PARTICIPANTES) {
-      erroresEncontrados.push(`Límite superado: Máximo ${MAXIMO_PARTICIPANTES} participantes.`);
+      erroresEncontrados.push(
+        `Límite superado: Máximo ${MAXIMO_PARTICIPANTES} participantes.`,
+      );
     }
 
     return { participantes: listaValida, errores: erroresEncontrados };
@@ -68,7 +72,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function obtenerModoSeleccionado() {
-    const seleccionado = document.querySelector('input[name="modo-division"]:checked');
+    const seleccionado = document.querySelector(
+      'input[name="modo-division"]:checked',
+    );
     return seleccionado ? seleccionado.value : "equipos";
   }
 
@@ -119,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const lideres = [];
     const normales = [];
 
-    participantes.forEach(nombre => {
+    participantes.forEach((nombre) => {
       if (nombre.startsWith("*")) {
         lideres.push(nombre.substring(1).trim());
       } else {
@@ -130,34 +136,53 @@ document.addEventListener("DOMContentLoaded", () => {
     const lideresMezclados = barajarAleatoriamente(lideres);
     const normalesMezclados = barajarAleatoriamente(normales);
 
-    let cantidadEquipos = (modo === "equipos") 
-      ? Math.min(valorSeleccionado, participantes.length) 
-      : Math.ceil(participantes.length / valorSeleccionado);
+    let cantidadEquipos =
+      modo === "equipos"
+        ? Math.min(valorSeleccionado, participantes.length)
+        : Math.ceil(participantes.length / valorSeleccionado);
 
     if (cantidadEquipos <= 0) cantidadEquipos = 1;
 
-    const resultadoEquipos = Array.from({ length: cantidadEquipos }, (_, indice) => ({
-      numero: indice + 1,
-      nombreEquipo: `Equipo ${indice + 1}`,
-      integrantes: []
-    }));
+    const resultadoEquipos = Array.from(
+      { length: cantidadEquipos },
+      (_, indice) => ({
+        numero: indice + 1,
+        nombreEquipo: `Equipo ${indice + 1}`,
+        integrantes: [],
+      }),
+    );
 
     lideresMezclados.forEach((lider, index) => {
-      resultadoEquipos[index % cantidadEquipos].integrantes.push({ nombre: lider, esLider: true });
+      resultadoEquipos[index % cantidadEquipos].integrantes.push({
+        nombre: lider,
+        esLider: true,
+      });
     });
 
     let turnoEquipo = lideresMezclados.length % cantidadEquipos;
-    normalesMezclados.forEach(participante => {
-      resultadoEquipos[turnoEquipo].integrantes.push({ nombre: participante, esLider: false });
+    normalesMezclados.forEach((participante) => {
+      resultadoEquipos[turnoEquipo].integrantes.push({
+        nombre: participante,
+        esLider: false,
+      });
       turnoEquipo = (turnoEquipo + 1) % cantidadEquipos;
     });
 
-    return { titulo: tituloSorteo, totalEquipos: cantidadEquipos, equipos: resultadoEquipos };
+    return {
+      titulo: tituloSorteo,
+      totalEquipos: cantidadEquipos,
+      equipos: resultadoEquipos,
+    };
   }
 
-  areaTextoParticipantes.addEventListener("input", procesarEntradaParticipantes);
+  areaTextoParticipantes.addEventListener(
+    "input",
+    procesarEntradaParticipantes,
+  );
   campoTitulo.addEventListener("input", guardarEnLocalStorage);
-  radiosModo.forEach(radio => radio.addEventListener("change", actualizarOpcionesSelector));
+  radiosModo.forEach((radio) =>
+    radio.addEventListener("change", actualizarOpcionesSelector),
+  );
 
   botonLimpiar.addEventListener("click", () => {
     if (confirm("¿Deseas limpiar todos los campos?")) {
@@ -173,7 +198,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const datosSorteo = ejecutarSorteoEquipos();
     if (!datosSorteo) return;
 
-    window.dispatchEvent(new CustomEvent("equiposGenerados", { detail: datosSorteo }));
+    window.dispatchEvent(
+      new CustomEvent("equiposGenerados", { detail: datosSorteo }),
+    );
   });
 
   recuperarDatosGuardados();
