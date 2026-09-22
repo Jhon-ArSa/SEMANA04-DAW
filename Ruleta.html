@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruleta de Sorteo</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+
+    <main class="contenedor-ruleta">
+
+        <section class="panel-control">
+
+            <h1>Ruleta de Sorteo</h1>
+
+            <label for="participantes">Participantes</label>
+
+            <textarea
+                id="participantes"
+                placeholder="Escribe un participante por línea..."
+                rows="12"
+            ></textarea>
+
+            <div class="botones">
+                <button id="botonIniciar" type="button">
+                    Iniciar
+                </button>
+
+                <button id="botonReiniciar" type="button">
+                    Reiniciar
+                </button>
+            </div>
+
+            <div class="atajos">
+                <p><strong>Atajos:</strong></p>
+                <p><kbd>SPACE</kbd> Girar</p>
+                <p><kbd>S</kbd> Ocultar ganador</p>
+                <p><kbd>E</kbd> Editar participantes</p>
+                <p><kbd>R</kbd> Reiniciar</p>
+                <p><kbd>F</kbd> Pantalla completa</p>
+            </div>
+
+        </section>
+
+
+        <section class="panel-ruleta">
+
+            <div id="respuesta" class="respuesta">
+                RESPUESTA
+            </div>
+
+            <!-- Gabriel trabajará posteriormente con este canvas -->
+            <canvas
+                id="ruleta"
+                width="500"
+                height="500"
+            ></canvas>
+
+        </section>
+
+    </main>
+
+    <script src="js/almacenamiento.js"></script>
+    <script src="js/control-ruleta.js"></script>
+
+</body>
+</html>
