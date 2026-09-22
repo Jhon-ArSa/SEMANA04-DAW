@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UNCP - Sorteo de Equipos</title>
+  <link rel="stylesheet" href="CS/sorteo-equipos.css">
+  <link rel="stylesheet" href="CS/reultados.css">
+</head>
+<body>
+
+  <main class="contenedor-sorteo">
+    <!-- PANEL 1: CONFIGURACIÓN (ROL JUAN - F1 y F2) -->
+    <section class="panel-sorteo">
+      <div class="columna-participantes">
+        <label for="texto-participantes" class="etiqueta-paso">1. Ingresa los participantes</label>
+        <div class="envoltorio-textarea">
+          <textarea 
+            id="texto-participantes" 
+            placeholder="Cada participante debe estar en una nueva línea&#10;Agrega un * para indicar líderes de grupo, *Líder"
+            rows="12"
+            spellcheck="false"></textarea>
+          <span id="contador-participantes" class="badge-contador">0</span>
+        </div>
+        <p class="ayuda-texto">Agrega un * para indicar líderes de grupo, *Líder</p>
+        <div id="mensaje-error-participantes" class="mensaje-error" style="display: none;"></div>
+      </div>
+
+      <div class="columna-configuracion">
+        <div class="bloque-opcion">
+          <label class="etiqueta-paso">2. Cómo dividir:</label>
+          <div class="grupo-radios">
+            <label class="opcion-radio">
+              <input type="radio" name="modo-division" value="equipos" checked>
+              <span>Cantidad de equipos</span>
+            </label>
+            <label class="opcion-radio">
+              <input type="radio" name="modo-division" value="participantes">
+              <span>Participantes por equipo</span>
+            </label>
+          </div>
+
+          <select id="selector-cantidad" class="selector-desplegable"></select>
+        </div>
+
+        <div class="bloque-opcion">
+          <label for="campo-titulo-sorteo" class="etiqueta-paso">3. Título</label>
+          <input 
+            type="text" 
+            id="campo-titulo-sorteo" 
+            class="campo-texto" 
+            placeholder="Copa del Mundo Qatar 2022" 
+            maxlength="60">
+        </div>
+
+        <div class="bloque-botones">
+          <button type="button" id="boton-limpiar-sorteo" class="boton-secundario">Limpiar</button>
+          <button type="button" id="boton-generar-equipos" class="boton-primario">Generar equipos</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANEL 2: RESULTADOS (ROL JEFFERSON - F3 y F4) -->
+    <section id="pantalla-resultados-sorteo" class="pantalla-resultados" style="display: none;">
+      <div class="cabecera-resultados">
+        <button type="button" id="boton-volver-configuracion" class="boton-volver">&larr; Volver a configurar</button>
+        <h2 id="titulo-pantalla-resultados" class="titulo-resultados">Resultados del Sorteo</h2>
+      </div>
+
+      <div id="rejilla-equipos" class="rejilla-equipos"></div>
+
+      <div class="barra-acciones-exportacion">
+        <button type="button" id="boton-descargar-jpg" class="boton-accion">Descargar en JPG</button>
+        <button type="button" id="boton-copiar-portapapeles" class="boton-accion">Copiar al portapapeles</button>
+        <button type="button" id="boton-copiar-columnas" class="boton-accion">Copiar por columnas</button>
+      </div>
+
+      <div id="notificacion-copiado" class="notificacion-toast" style="display: none;"></div>
+      <canvas id="lienzo-exportacion-jpg" style="display: none;"></canvas>
+    </section>
+  </main>
+
+  <script src="js/sorteo.equipos.js"></script>
+  <script src="js/resultados.js"></script>
+</body>
+</html>

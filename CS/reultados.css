@@ -1,0 +1,359 @@
+/* ============================================================
+   RESET Y VARIABLES
+   ============================================================ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", "Poppins", Tahoma, sans-serif;
+}
+
+:root {
+  --rosa: #d63384;
+  --rosa-oscuro: #b02a6b;
+  --rosa-claro: #fce7f3;
+  --rosa-suave: #fdf2f8;
+  --morado: #a855f7;
+  --azul: #3b82f6;
+  --gris: #374151;
+  --gris-suave: #6b7280;
+  --gris-borde: #e5e7eb;
+  --blanco: #ffffff;
+  --sombra-suave: 0 4px 20px rgba(214, 51, 132, 0.08);
+  --sombra-media: 0 10px 30px rgba(214, 51, 132, 0.15);
+  --sombra-fuerte: 0 16px 45px rgba(214, 51, 132, 0.25);
+  --trans: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  background: linear-gradient(135deg, #fdf2f8 0%, #f4f6f9 50%, #eff6ff 100%);
+  background-attachment: fixed;
+  color: var(--gris);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================
+   PANTALLA DE RESULTADOS
+   ============================================================ */
+.pantalla-resultados {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.resultado-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px 45px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-bottom: 1px solid rgba(214, 51, 132, 0.12);
+  box-shadow: 0 6px 30px rgba(214, 51, 132, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.titulo-resultados {
+  font-size: 1.9rem;
+  font-weight: 900;
+  letter-spacing: -0.6px;
+  background: linear-gradient(135deg, var(--rosa), var(--morado), var(--azul));
+  background-size: 250% 250%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradiente 5s ease infinite;
+  margin: 0;
+}
+
+@keyframes gradiente {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ============================================================
+   BOTÓN VOLVER
+   ============================================================ */
+.btn-volver {
+  background: rgba(255, 255, 255, 0.7);
+  border: 2px solid var(--rosa);
+  color: var(--rosa);
+  padding: 10px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: var(--trans);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  white-space: nowrap;
+}
+
+.btn-volver::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--rosa), var(--morado));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+  z-index: -1;
+}
+
+.btn-volver:hover {
+  color: #fff;
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(214, 51, 132, 0.35);
+}
+
+.btn-volver:hover::before {
+  transform: scaleX(1);
+}
+
+/* ============================================================
+   CONTENEDOR DE EQUIPOS (REJILLA)
+   ============================================================ */
+.contenedor-equipos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 28px;
+  padding: 45px;
+  flex: 1;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ============================================================
+   TARJETA DE EQUIPO
+   ============================================================ */
+.tarjeta-equipo {
+  background: var(--blanco);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--sombra-suave);
+  transition: var(--trans);
+  position: relative;
+  animation: entradaTarjeta 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+  display: flex;
+  flex-direction: column;
+}
+
+.tarjeta-equipo:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--sombra-fuerte);
+}
+
+.tarjeta-equipo h2 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #fff;
+  padding: 18px 22px;
+  margin: 0;
+  background: linear-gradient(135deg, var(--rosa), var(--morado));
+  background-size: 200% 200%;
+  animation: gradiente 4s ease infinite;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  letter-spacing: 0.3px;
+}
+
+.tarjeta-equipo h2::after {
+  content: "👥";
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.tarjeta-equipo ul {
+  list-style: none;
+  padding: 18px 22px 22px;
+  margin: 0;
+  flex: 1;
+}
+
+/* ============================================================
+   INTEGRANTES
+   ============================================================ */
+.tarjeta-equipo li {
+  padding: 12px 16px;
+  margin: 8px 0;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  color: var(--gris);
+  background: #f9fafb;
+  border-left: 4px solid transparent;
+  opacity: 0;
+  transform: translateX(-18px);
+  animation: aparecer 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  transition: var(--trans);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tarjeta-equipo li:hover {
+  background: var(--rosa-suave);
+  border-left-color: var(--rosa);
+  transform: translateX(6px);
+  color: var(--rosa-oscuro);
+  font-weight: 600;
+}
+
+.tarjeta-equipo li.lider {
+  font-weight: 800;
+  color: var(--rosa-oscuro);
+  background: linear-gradient(90deg, var(--rosa-claro) 0%, rgba(252, 231, 243, 0.4) 100%);
+  border-left-color: var(--rosa);
+}
+
+.tarjeta-equipo li.lider::before {
+  content: "⭐";
+  display: inline-block;
+  animation: brillar 2.2s ease-in-out infinite;
+}
+
+@keyframes aparecer {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes entradaTarjeta {
+  from { opacity: 0; transform: translateY(30px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes brillar {
+  0%, 100% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.25); filter: brightness(1.4); }
+}
+
+/* ============================================================
+   FOOTER DE ACCIONES
+   ============================================================ */
+.acciones-footer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 26px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-top: 1px solid rgba(214, 51, 132, 0.12);
+  box-shadow: 0 -6px 30px rgba(214, 51, 132, 0.08);
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+}
+
+/* ============================================================
+   BOTONES DE ACCIÓN
+   ============================================================ */
+.btn-accion {
+  background: linear-gradient(135deg, var(--rosa), var(--morado));
+  background-size: 200% 200%;
+  color: #fff;
+  border: none;
+  padding: 14px 26px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.3px;
+  transition: var(--trans);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(214, 51, 132, 0.35);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-accion::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.6s ease;
+}
+
+.btn-accion:hover {
+  transform: translateY(-4px);
+  background-position: 100% 50%;
+  box-shadow: 0 12px 30px rgba(214, 51, 132, 0.5);
+}
+
+.btn-accion:hover::before {
+  left: 100%;
+}
+
+.btn-accion:active {
+  transform: translateY(-1px) scale(0.97);
+}
+
+.btn-icono {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #f4f6f9; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--rosa), var(--morado));
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--rosa-oscuro); }
+
+::selection {
+  background: var(--rosa);
+  color: #fff;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 768px) {
+  .resultado-header {
+    padding: 16px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .titulo-resultados { font-size: 1.4rem; }
+
+  .contenedor-equipos {
+    padding: 20px;
+    gap: 20px;
+    grid-template-columns: 1fr;
+  }
+
+  .acciones-footer {
+    padding: 16px;
+    gap: 10px;
+  }
+
+  .btn-accion {
+    padding: 11px 18px;
+    font-size: 0.85rem;
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+}
