@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aula Virtual - Ruleta</title>
+<link rel="stylesheet" href="CS/ruleta.visual.css">
+</head>
+<body>
+
+<h2 id="respuesta">RESPUESTA</h2>
+
+<div class="contenedor">
+
+  <div class="zona-ruleta">
+    <canvas id="lienzoRuleta" width="500" height="500"></canvas>
+    <p class="ayuda">Haz clic para girar</p>
+  </div>
+
+  <div class="panel">
+    <textarea id="areaTextarea" rows="15" cols="20">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12</textarea>
+  </div>
+
+</div>
+
+<script src="js/ruleta-visual.js"></script>
+<script>
+  // Inicialización provisional (Jhon lo reemplazará con su módulo)
+  const inicial = document.getElementById('areaTextarea').value
+    .split('\n')
+    .map(l => l.trim())
+    .filter(l => l !== '');
+
+  actualizarElementosRuleta(inicial);
+
+  // Giro al hacer clic en la ruleta
+  document.getElementById('lienzoRuleta').addEventListener('click', () => {
+    girarRuleta((ganador) => {
+      document.getElementById('respuesta').textContent = ganador.valor;
+    });
+  });
+</script>
+
+</body>
+</html>
